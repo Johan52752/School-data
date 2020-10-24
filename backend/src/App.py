@@ -99,10 +99,51 @@ def newPost(id):
         return message
 
 @app.route('/post/<id>', methods=['GET'])
-def getPosts_User(id):
-    posts_user=db_posts.find({'id_student':id})
+def getPostsByUser(id):
+    student=db_users.find_one({'_id':ObjectId(id)})
+    app.logger.info(student)
+    posts_user=db_posts.find({"id_student":student['id_student']})
     response=json_util.dumps(posts_user)
     return Response(response, mimetype="application/json")
+
+@app.route('/posts',methods=['GET'])
+def getPosts():
+    posts=db_posts.find()
+    response=json_util.dumps(posts)
+    return Response(response, mimetype="application/json")
+
+@app.route('/post/<id>',methods=['PUT'])
+def updatePost(id):
+    if request.json['tittle']:
+        tittle=request.json['tittle']
+        db_posts.update({"_id":ObjectId(id)},{"$set":{
+            "tittle":tittle
+            }
+        })
+    if request.json['description']:
+        description=request.json['description']
+        db_posts.update({"_id":ObjectId(id)},{"$set":{
+            "description":description
+            }
+        })
+    if request.json['categorie']:
+        categorie=request.json['categorie']
+        db_posts.update({"_id":ObjectId(id)},{"$set":{
+            "categorie":categorie
+            }
+        })
+    up=db_posts.find({"_id":ObjectId(id)})
+    response=json_util.dumps(up)
+    return Response(response, mimetype="application/json")
+
+@app.route('/post/<id>', methods=['DELETE'])
+def deletePost(id):
+    db_posts.remove({"_id":ObjectId(id)})
+    return jsonify({
+        "status":"sucess, delete post"
+    })
+
+
 
 #inicio
 if __name__ == "__main__":
