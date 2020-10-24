@@ -1,8 +1,9 @@
 from flask import Flask, request, jsonify, Response
 from flask_pymongo import PyMongo,ObjectId
-from flask_cors import CORS 
+from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 from bson import json_util
+
 app=Flask(__name__)
 app.config['MONGO_URI']='mongodb://localhost/school-data'
 mongo = PyMongo(app)
@@ -16,12 +17,13 @@ db_posts=mongo.db.posts
 #Functions-Collection-Users
 @app.route('/users' , methods=['POST'])
 def createUser():
-    username=request.json['name']
-    id_student=request.json['id_student']
-    password=request.json['password']
-    description=request.json['description']
-    points=request.json['points']
-    if username and id_student and password and description and points:
+    username = request.json['name']
+    id_student = request.json['id_student']
+    password = request.json['password']
+    description = request.json['description']
+    points = 0
+
+    if username and id_student and password and description:
         hashed_password=generate_password_hash(password)
         id = db_users.insert({
             "name":username,
@@ -30,8 +32,9 @@ def createUser():
             "description":description,
             "points":points,
         })
-        user=db_users.find_one({'_id':ObjectId(id)})
-        response=json_util.dumps(user)
+
+        user = db_users.find_one({'_id':ObjectId(id)})
+        response = json_util.dumps(user)
         return Response(response, mimetype="application/json")
     else:
         messag=not_found()
