@@ -1,8 +1,9 @@
 from flask import Flask, request, jsonify, Response
 from flask_pymongo import PyMongo,ObjectId
-from flask_cors import CORS 
+from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 from bson import json_util
+
 app=Flask(__name__)
 app.config['MONGO_URI']='mongodb://localhost/school-data'
 mongo = PyMongo(app)
@@ -22,7 +23,7 @@ def createUser():
     description = request.json['description']
     points = 0
 
-    if username and id_student and password and description and points:
+    if username and id_student and password and description:
         hashed_password=generate_password_hash(password)
         id = db_users.insert({
             "name":username,
