@@ -104,5 +104,6 @@ def getPosts_User(id):
     response=json_util.dumps(posts_user)
     return Response(response, mimetype="application/json")
 
+#inicio
 if __name__ == "__main__":
     app.run(debug=True)
