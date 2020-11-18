@@ -1,0 +1,24 @@
+.container-fluid {
+    margin-top: 50px;
+}
+
+.container-cards {
+    .cards {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .cards-title {
+        color: #FF6464;
+        text-align: center;
+    }
+}
+
+.container-progress {
+    .progress-title {
+        color: #FF6464;
+        text-align: center;
+    }
+}

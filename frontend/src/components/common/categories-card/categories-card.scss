@@ -1,0 +1,16 @@
+.card {
+    width: 16rem;
+    height: 10rem;
+    margin: 10px;
+    font-size: 0.7rem;
+    border-radius: 20px;
+}
+
+.card:hover {
+    border: 1px solid #FF6464;
+    cursor: pointer;
+}
+
+.card-link {
+    color: #FF6464
+}
