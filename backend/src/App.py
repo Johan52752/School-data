@@ -201,7 +201,7 @@ def getCommentsByPost(id):
 
 @app.route('/comment/<id>' , methods=['DELETE'])
 def deleteComment(id):
-    db_comment.remove({"_id":ObjectId(id)})
+    db_comments.remove({"_id":ObjectId(id)})
     return jsonify({
         "comment":"delete"
     })
