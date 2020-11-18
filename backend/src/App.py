@@ -21,6 +21,7 @@ def createUser():
     id_student = request.json['id_student']
     password = request.json['password']
     description = request.json['description']
+    email = request.json['email']
     points = 0
 
     if username and id_student and password and description:
@@ -31,6 +32,7 @@ def createUser():
             "password":hashed_password,
             "description":description,
             "points":points,
+            "email":email
         })
 
         user = db_users.find_one({'_id':ObjectId(id)})

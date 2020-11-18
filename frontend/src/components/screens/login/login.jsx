@@ -1,28 +1,31 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
 import { Form, Button } from 'react-bootstrap'
+import { unlogUser } from '../../../actions'
 
-const Login = () => {
+import './login.scss'
+
+const Login = (props) => {
+    useEffect(() => {
+        props.unlogUser()
+    }, [])
+
     return (
         <>
             <div className="container-login">
+                <h1 className='login-title'>Iniciar sesion</h1>
                 <Form>
                     <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" />
-                        <Form.Text className="text-muted">
-                            We'll never share your email with anyone else.
-                        </Form.Text>
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control type="email" placeholder="example@example.com" />
                     </Form.Group>
 
                     <Form.Group controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" />
-                    </Form.Group>
-                    <Form.Group controlId="formBasicCheckbox">
-                        <Form.Check type="checkbox" label="Check me out" />
+                        <Form.Label>Contraseña</Form.Label>
+                        <Form.Control type="password" placeholder="*******" />
                     </Form.Group>
                     <Button variant="primary" type="submit">
-                        Submit
+                        Entrar
                     </Button>
                 </Form>
             </div>
@@ -30,4 +33,12 @@ const Login = () => {
     )
 }
 
-export default Login
+const mapDispatchToProps = {
+    unlogUser,
+}
+
+const mapStateToProps = (state) => {
+     return state
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)
