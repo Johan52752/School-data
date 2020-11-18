@@ -1,58 +1,93 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import UserService from '../../../services/userService'
+import { connect } from 'react-redux'
+import { registerUser, unlogUser } from '../../../actions'
 
-const Register = () => {
+import './register.scss'
+
+const Register = (props) => {
+    useEffect(() => {
+        props.unlogUser()
+    }, [])
+
     const registerForm = useForm()
     const userService = new UserService()
 
     const handleRegister = async (data) => {
         if( data.password === data.confirm_password){
+            
             const userData = {
                 name: data.name,
                 id_student: data.id_student,
                 description: data.description,
-                password: data.password
+                password: data.password,
+                email: data.email
             }
+
             const response = await userService.registerUser(userData)
-            console.log(response)
+
+            if (response.status === 200){
+                props.registerUser({ user: response.data})
+                props.history.push('/')
+            } else {
+                console.log(response)
+            }
+
+        } else {
+            alert('Las contraseñas no son iguales')
         }
     }
 
     return (
         <>
-            <div className="container-login">
+            <div className="container-register">
+                <h1 className='register-title'>Registrarse</h1>
                 <form onSubmit={ registerForm.handleSubmit((event) => handleRegister(event)) }>
                     <div className="form-group">
                         <label htmlFor="">Nombre Completo</label>
-                        <input type="text" name='name' ref={ registerForm.register }/>
+                        <input className='form-control' type="text" name='name' ref={ registerForm.register }/>
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="">Nombre de usuario</label>
-                        <input type="text" name='id_student' ref={ registerForm.register }/>
+                        <input className='form-control' type="text" name='id_student' ref={ registerForm.register }/>
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="">Email</label>
+                        <input className='form-control' type="email" name='email' ref={ registerForm.register }/>
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="">Descripcion</label>
-                        <input type="textarea" name='description' ref={ registerForm.register }/>
+                        <textarea className='form-control' name='description' ref={ registerForm.register }/>
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="">Contraseña</label>
-                        <input type="text" name='password' ref={ registerForm.register }/>
+                        <input className='form-control' type="password" name='password' ref={ registerForm.register }/>
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="">Repetir constraseña</label>
-                        <input type="text" name='confirm_password' ref={ registerForm.register }/>
+                        <input className='form-control' type="password" name='confirm_password' ref={ registerForm.register }/>
                     </div>
 
-                    <button type='submit'> Registrarse </button>
+                    <button className='btn btn-primary' type='submit'> Registrarse </button>
                 </form>
             </div>
         </>
     )
 }
 
-export default Register
+const mapDispatchToProps = {
+    registerUser,
+    unlogUser,
+}
+
+const mapStateToProps = (state) => {
+     return state
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register)

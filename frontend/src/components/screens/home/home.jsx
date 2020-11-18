@@ -1,11 +1,28 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
 
-const Home = ( ) => {
+const Home = (props) => {
+
+    useEffect(() => {
+        if (props.user === undefined){
+            console.log('entra')
+            props.history.push('/login')        
+        }
+    }, [props.user])
+
     return (
         <h1>
-            Home
+            {props?.user?.name && (
+               <span>{props.user.name}</span> 
+            )}
+            Hola 
         </h1>
     )
 }
 
-export default Home
+const mapStateToProps = (state) => {
+    const { user } = state
+    return { user }
+}
+
+export default connect(mapStateToProps, null)(Home)

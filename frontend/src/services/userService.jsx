@@ -9,7 +9,16 @@ class UserService {
                 'Content-Type': 'application/json',
               },
         })
-        console.log(response)
+        return response
+    }
+
+    loginUser = async (params) => {
+        let response = await axios.post(`${config.backend}/login`, params, { 
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json',
+              },
+        })
         return response
     }
 }
