@@ -27,7 +27,7 @@ const Register = (props) => {
 
             const response = await userService.registerUser(userData)
 
-            if (response.status === 200){
+            if (!response.data['error']){
                 props.registerUser({ user: response.data})
                 props.history.push('/')
             } else {

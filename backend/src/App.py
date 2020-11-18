@@ -15,6 +15,7 @@ db_posts=mongo.db.posts
 db_comments=mongo.db.comments
 db_tareas=mongo.db.tareas
 
+
 # Functions-Collection-Users
 @app.route('/login', methods=['POST'])
 def loginUser():
@@ -102,6 +103,8 @@ def updateUser(id):
         "user": "update"
     })
 
+
+
 # Functions-Collection-Posts
 @app.route('/posts/<id>', methods=['POST'])
 def newPost(id):
@@ -173,6 +176,7 @@ def deletePost(id):
     })
 
 #FUNCTIONS COMMENTS
+
 @app.route('/comment', methods=['POST'])
 def newComments():
     user=request.json['id_user']
@@ -201,7 +205,7 @@ def getCommentsByPost(id):
 
 @app.route('/comment/<id>' , methods=['DELETE'])
 def deleteComment(id):
-    db_comments.remove({"_id":ObjectId(id)})
+    db_comment.remove({"_id":ObjectId(id)})
     return jsonify({
         "comment":"delete"
     })
@@ -241,5 +245,6 @@ def deleteTarea(id):
     })
 
 # inicio
+
 if __name__ == "__main__":
     app.run(debug=True)
