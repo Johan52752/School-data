@@ -19,11 +19,13 @@ const Login = (props) => {
 
     const handleLogin = async (data) => {
         if (data.email && data.password){
-
             const response = await userService.loginUser(data)
+
             if (response.status === 200){
                 props.logUser({ user: response.data})
                 props.history.push('/')
+            } else {
+                alert('Datos de inicio de sesion incorrectos')
             }
 
         } else {

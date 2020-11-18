@@ -5,7 +5,6 @@ const Home = (props) => {
 
     useEffect(() => {
         if (props.user === undefined){
-            console.log('entra')
             props.history.push('/login')        
         }
     }, [props.user])

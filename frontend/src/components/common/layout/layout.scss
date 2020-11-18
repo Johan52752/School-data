@@ -1,5 +1,24 @@
-.navbar-brand {
+.navbar-menu {
+    width: 100%;
 
+    .navbar-list {
+        width: 100%;
+        display: flex !important;
+        flex-direction: row-reverse !important;
+        list-style: none;
+        margin-bottom: 0px;
+        padding-left: 0px;
+        
+        .nav-item {
+            a {
+                color: gray
+            }
+        }
+    }
+
+}
+
+.navbar-brand {
     span {
         font-size: 1.5rem;
     }
