@@ -21,6 +21,16 @@ class UserService {
         })
         return response
     }
+
+    getUser = async (user_id, params) => {
+        let response = await axios.get(`${config.backend}/user/${user_id}`, params, { 
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json',
+              },
+        })
+        return response
+    }
 }
 
 export default UserService

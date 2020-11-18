@@ -2,43 +2,42 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import { connect } from 'react-redux'
 import CategoriesService from '../../../services/categoriesService'
-import PostsService from '../../../services/postsService'
+import HomeworksService from '../../../services/homeworksService'
+import './homeworksCreate.scss'
 
-import './postCreate.scss'
-
-const PostCreate = (props) => {
+const HomeworksCreate = (props) => {
     const categoriesService = new CategoriesService()
-    const postsServices = new PostsService()
+    const homeworksService = new HomeworksService()
     const registerForm = useForm()
 
     const categories = categoriesService.getCategories()
 
     const handleSendForm = async (data) => {
         if (data.tittle && data.description && data.categorie){
-            const response = await postsServices.createPost(props.user._id.$oid, data)
+            const response = await homeworksService.createHomework(props.user._id.$oid, data)
             if (!response.data['error']){
-                alert('Publicacion creada correctamente')
+                alert('Tarea creada correctamente')
             }
         }
     }
 
     return (
         <>
-            <div className="post-create-container">
-                <h2>Crear una publicacion</h2>
+            <div className="homework-create-container">
+                <h2>Crear una tarea</h2>
                 <form onSubmit={ registerForm.handleSubmit((event) => handleSendForm(event)) }>
                     <div className="form-group">
-                        <label htmlFor="">Titulo de la publicacion</label>
+                        <label htmlFor="">Titulo de la tarea</label>
                         <input className='form-control' type="text" name='tittle' ref={registerForm.register} />
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="">Contenido</label>
+                        <label htmlFor="">Contenido de la tarea</label>
                         <textarea className='form-control' name='description' ref={registerForm.register} />
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="">Titulo de la publicacion</label>
+                        <label htmlFor="">Titulo de la tarea</label>
                         <select className='form-control'
                             name='categorie'
                             ref={registerForm.register}
@@ -64,4 +63,4 @@ const mapStateToProps = (state) => {
     return { user }
 }
 
-export default connect(mapStateToProps, null)(PostCreate)
+export default connect(mapStateToProps, null)(HomeworksCreate)

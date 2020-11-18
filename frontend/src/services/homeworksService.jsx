@@ -1,9 +1,9 @@
 import axios from 'axios'
 import config from '../config'
 
-class PostsService {
-    getPostsByCategory = async (params) => {
-        let response = await axios.post(`${config.backend}/post`, params, { 
+class HomeworksService {
+    getHomeworksByUser = async (user_id, params) => {
+        let response = await axios.get(`${config.backend}/tareas/${user_id}`, params, { 
             headers: {
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json',
@@ -12,8 +12,8 @@ class PostsService {
         return response
     }
 
-    createPost = async (user_id ,params) => {
-        let response = await axios.post(`${config.backend}/posts/${user_id}`, params, { 
+    createHomework = async (user_id, params) => {
+        let response = await axios.post(`${config.backend}/tarea/${user_id}`, params, { 
             headers: {
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json',
@@ -21,7 +21,6 @@ class PostsService {
         })
         return response
     }
-
 }
 
-export default PostsService
+export default HomeworksService

@@ -6,6 +6,9 @@ import Layout from '../components/common/layout/layout';
 import Register from '../components/screens/register/register'
 import PostsList from '../components/screens/posts/postsList'
 import PostCreate from '../components/screens/posts/postCreate'
+import Profile from '../components/screens/profile/profile'
+import Homeworks from '../components/screens/homeworks/homeworks'
+import HomeworksCreate from '../components/screens/homeworks/homeworksCreate'
 
 const App = () => (
   <BrowserRouter>
@@ -16,6 +19,9 @@ const App = () => (
         <Route exact path='/register' component={Register} />
         <Route exact path='/posts/:type' component={PostsList} />
         <Route exact path='/post/create' component={PostCreate} />
+        <Route exact path='/profile' component={Profile} />
+        <Route exact path='/homeworks' component={Homeworks} />
+        <Route exact path='/homeworks/create' component={HomeworksCreate} />
       </Switch>
     </Layout>
     

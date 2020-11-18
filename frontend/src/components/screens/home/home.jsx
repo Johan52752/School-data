@@ -42,7 +42,7 @@ const Home = (props) => {
                             <h3 className='progress-title'>Progreso</h3>
                             <h4>Puntaje: { props?.user?.points !== undefined && ( <span>{props.user.points}</span> ) } </h4>
                             <button onClick={() => props.history.push('/post/create')} className='btn btn-primary mt-2'>Crear una publicacion</button>
-                            <Link to='/'>¡Revisa tu ultima tarea!</Link>
+                            <Link to='/homeworks'>¡Revisa tus tareas!</Link>
                         </div>
                     </Col>
                 </Row>

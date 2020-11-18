@@ -8,9 +8,13 @@
 
 .card:hover {
     border: 1px solid #FF6464;
-    cursor: pointer;
 }
 
 .card-link {
     color: #FF6464
+}
+
+.card-link:hover {
+    color: grey;
+    cursor: pointer;
 }
