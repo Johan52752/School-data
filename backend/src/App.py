@@ -12,9 +12,21 @@ CORS(app)
 #Collections
 db_users=mongo.db.users
 db_posts=mongo.db.posts
+db_comments=mongo.db.comments
+db_tareas=mongo.db.tareas
 
 
 #Functions-Collection-Users
+@app.route('/user', methods=['GET'])
+def verifyUser():
+    id_student=request.json['id_student']
+    password=request.json['password']
+    if id_student and password:
+        veruser=db_users.find({
+            "id_student":id_student,
+            "password":password
+        })
+
 @app.route('/users' , methods=['POST'])
 def createUser():
     username = request.json['name']
@@ -146,7 +158,74 @@ def deletePost(id):
         "status":"sucess, delete post"
     })
 
+#FUNCTIONS COMMENTS
 
+@app.route('/comment', methods=['POST'])
+def newComments():
+    user=request.json['id_user']
+    post=request.json['id_post']
+    bodyComment=request.json['bodyComment']
+    nuser=db_users.find_one({'_id':ObjectId(user)})
+    npost=db_posts.find_one({'_id':ObjectId(post)})
+    if user and post and bodyComment:
+        id_comment=db_comments.insert({
+            "user":nuser['name'],
+            "post":post,
+            "bodyComment":bodyComment
+        })
+        comment=db_comments.find({"_id":ObjectId(id_comment)})
+        response=json_util.dumps(comment)
+        return Response(response,mimetype="application/json")
+    else:
+        message=not_found()
+        return message
+
+@app.route('/comments/<id>', methods=['GET'])
+def getCommentsByPost(id):
+    comment_post=db_comments.find({"post":id})
+    response=json_util.dumps(comment_post)
+    return Response(response, mimetype="application/json")
+
+@app.route('/comment/<id>' , methods=['DELETE'])
+def deleteComment(id):
+    db_comment.remove({"_id":ObjectId(id)})
+    return jsonify({
+        "comment":"delete"
+    })
+
+#FUNCTIONS HOME-WORKS 
+@app.route('/tarea/<id>', methods=['POST'])
+def createTarea(id):
+    tittle=request.json['tittle']
+    description=request.json['description']
+    categorie=request.json['categorie']
+    user=db_users.find_one({'_id': ObjectId(id)})
+    if categorie and tittle and description and user:
+        id_tareas=db_tareas.insert({
+            "tittle":tittle,
+            "description":description,
+            "categorie":categorie,
+            "id_student":id
+        })
+        tareas=db_tareas.find({'_id':ObjectId(id_tareas)})
+        response=json_util.dumps(tareas)
+        return Response(response, mimetype="application/json")
+    else:
+        message=not_found()
+        return message
+
+@app.route('/tareas/<id>', methods=['GET'])
+def getTareasByUser(id):
+    tareas_user=db_tareas.find({"id_student":id})
+    response=json_util.dumps(tareas_user)
+    return Response(response, mimetype="application/json")
+
+@app.route('/tarea/<id>' , methods=['DELETE'])
+def deleteTarea(id):
+    db_tareas.remove({"_id":ObjectId(id)})
+    return jsonify({
+        "tarea":"delete"
+    })
 
 #inicio
 if __name__ == "__main__":
