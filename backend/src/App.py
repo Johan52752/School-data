@@ -126,6 +126,18 @@ def newPost(id):
         message = not_found()
         return message
 
+@app.route('/post', methods=['POST'])
+def getPostByCategory():
+    category=request.json['category']
+    if category:
+        post_category=db_posts.find({"categorie":category})
+        response=json_util.dumps(post_category)
+        return Response(response, mimetype="application/json")
+    else:
+        message = not_found()
+        return message
+
+
 
 @app.route('/post/<id>', methods=['GET'])
 def getPostsByUser(id):
