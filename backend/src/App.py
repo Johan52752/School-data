@@ -9,31 +9,11 @@ app.config['MONGO_URI'] = 'mongodb://localhost/school-data'
 mongo = PyMongo(app)
 CORS(app)
 
-<<<<<<< HEAD
 #Collections
 db_users=mongo.db.users
 db_posts=mongo.db.posts
 db_comments=mongo.db.comments
 db_tareas=mongo.db.tareas
-
-
-#Functions-Collection-Users
-@app.route('/user', methods=['GET'])
-def verifyUser():
-    id_student=request.json['id_student']
-    password=request.json['password']
-    if id_student and password:
-        veruser=db_users.find({
-            "id_student":id_student,
-            "password":password
-        })
-
-@app.route('/users' , methods=['POST'])
-=======
-# Collections
-db_users = mongo.db.users
-db_posts = mongo.db.posts
-
 
 # Functions-Collection-Users
 @app.route('/login', methods=['POST'])
@@ -57,7 +37,6 @@ def loginUser():
 
 
 @app.route('/users', methods=['POST'])
->>>>>>> 92a59f140e3bd161d7d3075f909b3a39f0a3178a
 def createUser():
     username = request.json['name']
     id_student = request.json['id_student']
@@ -122,11 +101,6 @@ def updateUser(id):
     return jsonify({
         "user": "update"
     })
-
-# Functions-Collection-Categories
-# @app.route('/categories')
-# def getCategorie():
-
 
 # Functions-Collection-Posts
 @app.route('/posts/<id>', methods=['POST'])
@@ -199,7 +173,6 @@ def deletePost(id):
     })
 
 #FUNCTIONS COMMENTS
-
 @app.route('/comment', methods=['POST'])
 def newComments():
     user=request.json['id_user']
@@ -226,7 +199,6 @@ def getCommentsByPost(id):
     response=json_util.dumps(comment_post)
     return Response(response, mimetype="application/json")
 
-<<<<<<< HEAD
 @app.route('/comment/<id>' , methods=['DELETE'])
 def deleteComment(id):
     db_comment.remove({"_id":ObjectId(id)})
@@ -268,9 +240,6 @@ def deleteTarea(id):
         "tarea":"delete"
     })
 
-#inicio
-=======
 # inicio
->>>>>>> 92a59f140e3bd161d7d3075f909b3a39f0a3178a
 if __name__ == "__main__":
     app.run(debug=True)
