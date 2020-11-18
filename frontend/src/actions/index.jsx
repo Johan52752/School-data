@@ -7,3 +7,8 @@ export const unlogUser = (payload) => ({
     type: 'UNLOG_USER',
     payload
 })
+
+export const logUser = (payload) => ({
+    type: 'LOG_USER',
+    payload
+})

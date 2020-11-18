@@ -10,6 +10,11 @@ const reducers = (state, action) => {
             return {
                 ...state
             }
+        case 'LOG_USER':
+            return {
+                ...state,
+                user: action.payload.user
+            }
         default:
             return state
     }

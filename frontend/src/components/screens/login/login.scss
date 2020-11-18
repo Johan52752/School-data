@@ -1,13 +1,22 @@
 .container-login {
-    margin: 10% 30% 0 30%;
+    margin: 5% 30% 0 30%;
     padding: 2%;
     border-radius: 20px;
-    -webkit-box-shadow: 10px 10px 38px 0px rgba(0,0,0,0.35);
-    -moz-box-shadow: 10px 10px 18px 0px rgba(0,0,0,0.35);
-    box-shadow: 10px 10px 18px 0px rgba(0,0,0,0.35);
+    -webkit-box-shadow: 10px 10px 38px 0px rgba(0,0,0,0.15);
+    -moz-box-shadow: 10px 10px 18px 0px rgba(0,0,0,0.15);
+    box-shadow: 10px 10px 18px 0px rgba(0,0,0,0.15);
 
     .login-title {
         text-align: center;
         color: #FF6464;
+    }
+
+    .color-alert {
+        color: #FF6464;
+        cursor: pointer;
+    }
+
+    .form-text {
+        margin-bottom: 4%;
     }
 }
