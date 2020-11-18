@@ -20,8 +20,8 @@ const Login = (props) => {
     const handleLogin = async (data) => {
         if (data.email && data.password){
             const response = await userService.loginUser(data)
-
-            if (response.status === 200){
+            console.log(response)
+            if (!response.data['error']){
                 props.logUser({ user: response.data})
                 props.history.push('/')
             } else {
